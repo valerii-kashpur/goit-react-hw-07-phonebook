@@ -7,7 +7,7 @@ import styled from "styled-components";
 import transition from "styled-transition-group";
 import FilterContainer from "../StyledComponents/FilterContainer";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteItem } from "../Redux/slice/contactsSlice";
+import { deleteItem, addItem } from "../Redux/slice/contactsSlice";
 import { setError, resetError } from "../Redux/slice/error";
 import {
   postContactOperation,
@@ -95,7 +95,6 @@ const App = () => {
     dispatch(loaderOff());
   }, []);
 
-
   const addContact = (name, number) => {
     const contact = {
       name,
@@ -103,13 +102,9 @@ const App = () => {
       id: uuidv4(),
     };
     dispatch(postContactOperation(contact));
-    setTimeout(() => {
-      dispatch(getContactsOperation())
-    }, 10);
 
-    // dispatch(addItem(contact))
+    dispatch(addItem(contact));
   };
-  
 
   const removeContact = (id) => {
     dispatch(deleteItem(id));
